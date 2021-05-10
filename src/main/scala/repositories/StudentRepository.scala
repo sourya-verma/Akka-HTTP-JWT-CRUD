@@ -33,9 +33,23 @@ trait StudentRepository extends StudentTable {
   def delete(id: Int): Future[Int] = db.run {
     studentTableQuery.filter(_.id === id).delete
   }
+  
+
+//  def getStudentUniversityName() = {
+//    val ans = (for {
+//      (student, university) <- studentTableQuery join universityTableQuery on (_.universityId === _.id)
+//    } yield (student.name, university.name)).to[List]
+//
+//    db.run(ans.to[List].result)
+//
+//
+//  }
+
+
+
 }
 
-private[repositories] trait StudentTable {
+private[repositories] trait StudentTable extends  UniversityTable {
   this: DBComponent =>
 
   import driver.api._

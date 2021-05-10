@@ -22,7 +22,7 @@ import scala.io.StdIn
 object AkkaHttpDemo {
 
 //  // needed to run the route
-  implicit val system = ActorSystem(Behaviors.empty, "SprayExample")
+  implicit val system = ActorSystem(Behaviors.empty, "Akka-HTTP-CRUD")
 //  // needed for the future map/flatmap in the end and future in fetchItem and saveOrder
   implicit val executionContext = system.executionContext
   private val cors = new CORSHandler {}

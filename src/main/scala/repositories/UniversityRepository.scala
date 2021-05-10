@@ -32,6 +32,18 @@ trait UniversityRepository extends UniversityTable {
   def delete(id: Int): Future[Int] = db.run {
     universityTableQuery.filter(_.id === id).delete
   }
+
+//
+//  def getUniversityStudentCount() = {
+//    val ans = (for {
+//      (s,u) <- studentTableQuery join(universityTableQuery) on(_.universityId === _.id)
+//    } yield (s,u)).groupBy(_._2.name).map{
+//      case (university, data) => (university, data.map(_._1.universityId).length)
+//    }
+//    ans.to[List].result
+//  }
+//
+
 }
 
 private[repositories] trait UniversityTable {

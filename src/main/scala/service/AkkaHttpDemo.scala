@@ -44,7 +44,7 @@ object AkkaHttpDemo {
                 })
             }
           }
-      } ~
+      }~
       path("user" / "list") {
         options{
           cors.corsHandler(complete(StatusCodes.OK))
@@ -56,7 +56,7 @@ object AkkaHttpDemo {
                 }
               })
             }
-      } ~
+      }~
         path("user"/"validate") {
           options{
             cors.corsHandler(complete(StatusCodes.OK))
@@ -86,7 +86,7 @@ object AkkaHttpDemo {
             })
           }
         }
-      } ~
+      }~
         path("student" / "create") {
           options{
             cors.corsHandler(complete(StatusCodes.OK))
@@ -104,7 +104,7 @@ object AkkaHttpDemo {
               }
             }
           }
-        } ~
+        }~
         path("student" / "update") {
           options{
             cors.corsHandler(complete(StatusCodes.OK))
@@ -138,7 +138,7 @@ object AkkaHttpDemo {
               }
             }
           }
-        } ~
+        }~
         path("student" / "getbyid") {
           parameters('id.as[Int]) { id => // URL parameter
             options{
@@ -154,7 +154,7 @@ object AkkaHttpDemo {
               }
             }
           }
-        } ~
+        }~
         path("university" / "list") {
           options{
             cors.corsHandler(complete(StatusCodes.OK))
@@ -168,7 +168,7 @@ object AkkaHttpDemo {
               })
             }
           }
-        } ~
+        }~
         path("university" / "create") {
           options{
             cors.corsHandler(complete(StatusCodes.OK))
@@ -187,7 +187,7 @@ object AkkaHttpDemo {
               }
             }
           }
-        } ~
+        }~
         path("university" / "update") {
           options{
             cors.corsHandler(complete(StatusCodes.OK))
@@ -205,7 +205,7 @@ object AkkaHttpDemo {
               }
             }
           }
-        } ~
+        }~
         path("university" / "delete") {
           parameters('id.as[Int]) { id => // URL parameter
             options {
@@ -221,7 +221,7 @@ object AkkaHttpDemo {
                 }
               }
           }
-        } ~
+        }~
         path("university" / "getbyid") {
           parameters('id.as[Int]) { id => // URL parameter
             options{

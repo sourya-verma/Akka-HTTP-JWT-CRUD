@@ -14,5 +14,7 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.187" % "test",
   "mysql" % "mysql-connector-java" % "6.0.6",
   "org.scalatest" %% "scalatest" % "3.2.6" % Test,
-  "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5"
+  "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5",
+  "com.typesafe.akka" %% "akka-stream-testkit" % "2.6.8",
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.2.4"
 )

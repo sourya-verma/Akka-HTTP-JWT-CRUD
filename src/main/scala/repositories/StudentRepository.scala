@@ -35,15 +35,6 @@ trait StudentRepository extends StudentTable {
   }
   
 
-//  def getStudentUniversityName() = {
-//    val ans = (for {
-//      (student, university) <- studentTableQuery join universityTableQuery on (_.universityId === _.id)
-//    } yield (student.name, university.name)).to[List]
-//
-//    db.run(ans.to[List].result)
-//
-//
-//  }
 
 
 

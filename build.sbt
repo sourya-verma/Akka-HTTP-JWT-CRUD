@@ -16,5 +16,6 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.6" % Test,
   "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5",
   "com.typesafe.akka" %% "akka-stream-testkit" % "2.6.8",
-  "com.typesafe.akka" %% "akka-http-testkit" % "10.2.4"
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.2.4",
+  "org.mockito" %% "mockito-scala" % "1.11.2" % Test
 )

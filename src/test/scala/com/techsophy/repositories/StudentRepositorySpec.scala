@@ -9,10 +9,9 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
 import repositories.StudentRepository
 
-import java.sql.Date
 
 
-class StudentSpec extends AnyFunSuite with StudentRepository with H2DBComponent with ScalaFutures {
+class StudentRepositorySpec extends AnyFunSuite with StudentRepository with H2DBComponent with ScalaFutures {
 
   implicit val defaultPatience = PatienceConfig(timeout = Span(5, Seconds), interval = Span(500, Millis))
 

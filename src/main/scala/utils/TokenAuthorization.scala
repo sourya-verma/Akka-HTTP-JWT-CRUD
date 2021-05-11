@@ -3,48 +3,55 @@ package utils
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Directive1
-import akka.http.scaladsl.server.Directives.{optionalHeaderValueByName, provide}
+import akka.http.scaladsl.server.{AuthorizationFailedRejection, Directive1}
+import akka.http.scaladsl.server.Directives.{optionalHeaderValueByName, provide, reject}
 import akka.http.scaladsl.server.directives.RouteDirectives.complete
 import authentikat.jwt.{JsonWebToken, JwtClaimsSet, JwtHeader}
-import service.CORSHandler
 
-object TokenAuthorization {
+trait TokenAuthorization {
 
   private val secretKey = "super_secret_key"
   private val header = JwtHeader("HS256")
-  private val tokenExpiryPeriod = 1
 
-  // needed to run the route
-  implicit val system = ActorSystem(Behaviors.empty, "SprayExample")
-  // needed for the future map/flatmap in the end and future in fetchItem and saveOrder
-  implicit val executionContext = system.executionContext
-  private val cors = new CORSHandler {}
-
-  def generateToken(id: Int, password: String): String = {
+  def generateToken(fname: String, lname: String): String = {
     val claims = JwtClaimsSet(
       Map(
-        "id" -> id,
-        "password" -> password
+        "firstName" -> fname,
+        "lastName" -> lname
       )
     )
     JsonWebToken(header, claims, secretKey)
   }
 
+  def isEmpty(x: String) = x == null || x.trim.isEmpty
+
+
   def authenticated: Directive1[Map[String, Any]] = {
 
     optionalHeaderValueByName("Authorization").flatMap { tokenFromUser =>
+      tokenFromUser match {
+        case None => complete(StatusCodes.Unauthorized -> "Token Missing")
+        case _=> {
+          val jwtToken = tokenFromUser.get.split(" ")
 
-      val jwtToken = tokenFromUser.get.split(" ")
-      jwtToken(1) match {
-        case token if isTokenExpired(token) =>
-          complete(StatusCodes.Unauthorized -> "Session expired.")
+          jwtToken(1) match {
+            case token if isTokenExpired(token) => {
+              println("inside expire token")
+              complete(StatusCodes.Unauthorized -> "Session expired.")
+            }
 
-        case token if JsonWebToken.validate(token, secretKey) =>
-          provide(getClaims(token))
+            case token if JsonWebToken.validate(token, secretKey) => {
+              println("inside token passed")
+              provide(getClaims(token))
+            }
+            case _ => {
+              complete(StatusCodes.Unauthorized -> "Invalid Token")
+            }
+          }
 
-        case _ =>  complete(StatusCodes.Unauthorized ->"Invalid Token")
+        }
       }
+
     }
   }
 
@@ -60,3 +67,4 @@ object TokenAuthorization {
 
 
 }
+
